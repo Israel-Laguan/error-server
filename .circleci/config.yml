@@ -1,0 +1,67 @@
+version: 2
+
+postgres_env:
+  environment:
+    # The defined vars the postgres containers use
+    - POSTGRES_USER: israel
+    - POSTGRES_DB: postgres
+    - POSTGRES_PASSWORD: laguan
+    - POSTGRES_DB_URL: 0.0.0.0
+
+workflows:
+  version: 2
+  flow:
+    jobs:
+      - musl_build
+      - unit_test
+jobs:
+  musl_build:
+    docker:
+      - image: clux/muslrust:1.63.0-stable
+    working_directory: /volume
+    steps:
+      - checkout
+      - run: echo 'export CACHE_VERSION="12' >> $BASH_ENV
+      - restore_cache:
+          keys:
+          - cargo.registry.release-{{ .Environment.CACHE_VERSION }}
+      - restore_cache:
+          keys:
+          - target.release-{{ .Environment.CACHE_VERSION }}
+      - run: cargo build --release
+      - save_cache:
+          key: target.release-{{ .Environment.CACHE_VERSION }}
+          paths:
+            - target
+      - save_cache:
+          key: cargo.registry.release-{{ .Environment.CACHE_VERSION }}
+          paths:
+            - /root/.cargo
+      - persist_to_workspace:
+          root: target/x86_64-unknown-linux-musl/release/
+          paths:
+            - webapp
+
+  unit_test:
+    docker:
+      - image: clux/muslrust:nightly
+    working_directory: /volume
+    steps:
+      - checkout
+      - run: echo 'export CACHE_VERSION="12' >> $BASH_ENV
+      - restore_cache:
+          keys:
+          - cargo.registry.debug-{{ .Environment.CACHE_VERSION }}
+      - restore_cache:
+          keys:
+          - target.debug-{{ .Environment.CACHE_VERSION }}
+      - run: cargo test
+      - run: cargo doc --no-deps
+      - save_cache:
+          key: target.debug-{{ .Environment.CACHE_VERSION }}
+          paths:
+            - target
+      - save_cache:
+          key: cargo.registry.debug-{{ .Environment.CACHE_VERSION }}
+          paths:
+            - /root/.cargo

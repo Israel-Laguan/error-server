@@ -1,0 +1,44 @@
+{
+  "diffEditor.ignoreTrimWhitespace": false,
+  "editor.inlayHints.enabled": "on",
+  "editor.insertSpaces": true,
+  "editor.formatOnSave": true,
+  "editor.rulers": [
+    {
+      "column": 80,
+      "color": "#ffaa0080"
+    },
+    {
+      "column": 120,
+      "color": "#ff0000"
+    }
+  ],
+  "editor.tabSize": 4,
+  "editor.wordWrapColumn": 120,
+  "editor.wordWrap": "wordWrapColumn",
+  "files.insertFinalNewline": true,
+  "files.eol": "\n",
+  "files.exclude": {
+    "**/.git": true,
+  },
+  "rust-analyzer.checkOnSave.command": "clippy",
+  "cSpell.words": [
+    "chrono",
+    "clippy",
+    "Codegen",
+    "dbname",
+    "deadpool",
+    "dotenv",
+    "Embedder",
+    "flexi",
+    "helmetjs",
+    "lefthook",
+    "middlewares",
+    "noopen",
+    "nosniff",
+    "OWASP",
+    "proto",
+    "SAMEORIGIN",
+    "serde"
+  ],
+}
