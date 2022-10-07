@@ -1,6 +1,6 @@
 NAME=error-server
 VERSION=$(shell git rev-parse HEAD)
-RUSTV=nightly
+RUSTV=stable
 SEMVER_VERSION=$(shell grep version Cargo.toml | awk -F"\"" '{print $$2}' | head -n 1)
 REPO=error-server
 SHELL := /bin/bash

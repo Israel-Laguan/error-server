@@ -36,9 +36,15 @@
     "middlewares",
     "noopen",
     "nosniff",
+    "openapi",
     "OWASP",
+    "pgadmin",
     "proto",
+    "redoc",
+    "rustc",
+    "rustup",
     "SAMEORIGIN",
-    "serde"
+    "serde",
+    "tlsv"
   ],
 }

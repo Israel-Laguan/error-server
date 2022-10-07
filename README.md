@@ -60,6 +60,9 @@ cargo run
 # Build container
 docker build -t error-server .
 
+# In order to work with pgadmin4
+mkdir pgadmin_data && sudo chown -R 5050:5050 pgadmin_data
+
 # Run container
 docker run --rm -p 8080:8080 --name build error-server
 ```

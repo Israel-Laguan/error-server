@@ -43,6 +43,8 @@ COPY ./ .
 
 RUN cargo build --target x86_64-unknown-linux-musl --release
 
+RUN strip -s /error-server/target/release/error-server
+
 ####################################################################################################
 ## Final image
 ####################################################################################################
@@ -55,7 +57,7 @@ COPY --from=builder /etc/group /etc/group
 WORKDIR /error-server
 
 # Copy our build
-COPY --from=builder /myip/target/x86_64-unknown-linux-musl/release/error-server ./
+COPY --from=builder /error-server/target/x86_64-unknown-linux-musl/release/error-server ./
 
 # Use an unprivileged user.
 USER error-server:error-server
